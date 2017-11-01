@@ -5,23 +5,6 @@ class PostsNew extends Component {
   renderField(field) {
       return (
         <div className="form-group">
-          <label>Title:</label>
-          <input
-            className="form-control"
-            //instead of
-            // onChange={field.input.onChange}
-            // onFocus={field.input.onFocus}
-            // this wires up everything
-            type="text"
-            {...field.input}
-          />
-        </div>
-      );
-  }
-
-  renderTagsField(field) {
-      return (
-        <div className="form-group">
           <label>{field.label}:</label>
           <input
             className="form-control"
@@ -32,14 +15,22 @@ class PostsNew extends Component {
             type="text"
             {...field.input}
           />
+          {field.meta.error}
         </div>
       );
   }
 
+  onSubmit(values) {
+    // this === component
+    console.log(values);
+  }
+
   render() {
+    const { handleSubmit } = this.props;
+
     return (
       <div>
-        <form>
+        <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
           <Field
             label="Title"
             name="title"
@@ -57,6 +48,8 @@ class PostsNew extends Component {
             name="content"
             component={this.renderField}
           />
+
+          <button type="submit" className="btn btn-primary">Submit</button>
         </form>
       </div>
     );
@@ -83,6 +76,6 @@ function validate(values) {
 }
 
 export default reduxForm({
-  validate: validate,
+  validate,
   form: 'PostsNewForm'
 })(PostsNew);
