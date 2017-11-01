@@ -47,8 +47,8 @@ class PostsNew extends Component {
           />
 
           <Field
-            label="Tags"
-            name="tags"
+            label="Categories"
+            name="categories"
             component={this.renderField}
           />
 
@@ -63,6 +63,26 @@ class PostsNew extends Component {
   }
 }
 
+function validate(values) {
+  const errors  = {};
+
+  // Validate the input from 'values'
+  if(!values.title || values.title.length < 3) {
+    errors.title = "Enter a title that is at least 3 characters";
+  }
+
+  if(!values.categories) {
+    errors.categories = "Enter some category";
+  }
+
+  if(!values.content) {
+    errors.content = "Enter some content";
+  }
+
+  return errors;
+}
+
 export default reduxForm({
+  validate: validate,
   form: 'PostsNewForm'
 })(PostsNew);
