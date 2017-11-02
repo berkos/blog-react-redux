@@ -1,10 +1,12 @@
 import React, {Component} from 'react';
 import {Field, reduxForm} from 'redux-form';
+import { Link } from 'react-router-dom';
 
 class PostsNew extends Component {
   renderField(field) {
-    const { meta } = field
-    const className = `form-group ${meta.touched && meta.error ? 'has-danger' : ''}`
+    const { meta } = field;
+    const className = `form-group ${meta.touched && meta.error ? 'has-danger' : ''}`;
+
     return (
       <div className={className}>
         <label>{field.label}:</label>
@@ -54,6 +56,7 @@ class PostsNew extends Component {
           />
 
           <button type="submit" className="btn btn-primary">Submit</button>
+          <Link to="/" className="btn btn-danger">Cancel</Link>
         </form>
       </div>
     );
