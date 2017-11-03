@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import { FETCH_POSTS, FETCH_POST}  from "../actions/index";
+import { FETCH_POSTS, FETCH_POST, DELETE_POST}  from "../actions/index";
 
 export default function(state = {}, action) {
   switch (action.type) {
@@ -13,6 +13,9 @@ export default function(state = {}, action) {
 
       // ES6
       return { ...state, [action.payload.data.id]: action.payload.data };
+    case DELETE_POST:
+      //action payload is the post id omit(drop it)
+      return _.omit(state, action.payload);
     case FETCH_POSTS:
       //console.log(action.payload.data); // [post1, post2]
       // { 4: post }
